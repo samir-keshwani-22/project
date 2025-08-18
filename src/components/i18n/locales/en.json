@@ -1,0 +1,39 @@
+{
+    "sidebar": {
+      "title": "Exam Portal",
+      "subtitle": "Management System",
+      "exams": "Exams",
+      "examsDescription": "Manage exams and assessments",
+      "questions": "Questions",
+      "questionsDescription": "Create and edit questions"
+    },
+    "examList": {
+      "title": "Exams",
+      "subtitle": "Manage your exams and assessments",
+      "createExam": "Create Exam",
+      "searchPlaceholder": "Search exams by title...",
+      "search": "Search",
+      "noExams": "No exams found",
+      "getStarted": "Get started by creating your first exam.",
+      "loading": "Loading exams...",
+      "deleteConfirm": "Are you sure you want to delete this exam?",
+      "table": {
+        "title": "Title",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "actions": "Actions"
+      },
+      "pagination": {
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "results": "results",
+        "previous": "Previous",
+        "next": "Next"
+      }
+    },
+    "common": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  }
