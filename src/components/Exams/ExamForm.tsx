@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExamCreate, ExamUpdate } from '../../types/exam';
 import { Button } from '../UI/Button';
+import { useTranslation } from 'react-i18next';
 
 interface ExamFormProps {
   initialData?: Partial<ExamCreate>;
@@ -15,24 +16,17 @@ export const ExamForm: React.FC<ExamFormProps> = ({
   onCancel,
   isEdit = false
 }) => {
-
+  const { t } = useTranslation();
   const formatDateTimeLocal = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-
-    // Get local date components (this automatically handles timezone like ExamList does)
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    // Return in datetime-local format: YYYY-MM-DDTHH:MM
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
-
-
-
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: initialData?.title || '',
@@ -50,22 +44,22 @@ export const ExamForm: React.FC<ExamFormProps> = ({
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
+      newErrors.title = t('examForm.validation.titleRequired')
     }
 
     if (!formData.startDate) {
-      newErrors.startDate = 'Start date is required';
+      newErrors.startDate = t('examForm.validation.startRequired');
     }
 
     if (!formData.endDate) {
-      newErrors.endDate = 'End date is required';
+      newErrors.endDate = t('examForm.validation.endRequired');
     }
 
     if (formData.startDate && formData.endDate && new Date(formData.startDate) >= new Date(formData.endDate)) {
-      newErrors.endDate = 'End date must be after start date';
+      newErrors.endDate = t('examForm.validation.endAfterStart');
     }
     if (!formData.durationMinutes || formData.durationMinutes <= 0) {
-      newErrors.durationMinutes = 'Duration must be greater than 0';
+      newErrors.durationMinutes = t('examForm.validation.durationRequired');
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -88,7 +82,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-          Title *
+          {t('examForm.title')}
         </label>
         <input
           type="text"
@@ -97,7 +91,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${errors.title ? 'border-red-300' : 'border-gray-300'
             }`}
-          placeholder="Enter exam title"
+          placeholder={t('examForm.titlePlaceholder')}
         />
         {errors.title && (
           <p className="mt-1 text-sm text-red-600">{errors.title}</p>
@@ -106,7 +100,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
 
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-          Description
+          {t('examForm.description')}
         </label>
         <textarea
           id="description"
@@ -114,14 +108,14 @@ export const ExamForm: React.FC<ExamFormProps> = ({
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={3}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-          placeholder="Enter exam description (optional)"
+          placeholder={t('examForm.descriptionPlaceholder')}
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
-            Start Date *
+            {t('examForm.startDate')}
           </label>
           <input
             type="datetime-local"
@@ -138,7 +132,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
 
         <div>
           <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
-            End Date *
+            {t('examForm.endDate')}
           </label>
           <input
             type="datetime-local"
@@ -157,7 +151,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="durationMinutes" className="block text-sm font-medium text-gray-700 mb-1">
-            Duration (minutes) *
+            {t('examForm.duration')}
           </label>
           <input
             type="number"
@@ -169,7 +163,8 @@ export const ExamForm: React.FC<ExamFormProps> = ({
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${errors.durationMinutes ? 'border-red-300' : 'border-gray-300'
               }`}
             min={1}
-            placeholder="e.g., 90"
+            placeholder={t('examForm.durationPlaceholder')}
+
           />
           {errors.durationMinutes && (
             <p className="mt-1 text-sm text-red-600">{errors.durationMinutes}</p>
@@ -178,7 +173,7 @@ export const ExamForm: React.FC<ExamFormProps> = ({
 
         <div>
           <label htmlFor="totalMarks" className="block text-sm font-medium text-gray-700 mb-1">
-            Total Marks (optional)
+            {t('examForm.totalMarks')}
           </label>
           <input
             type="number"
@@ -188,25 +183,23 @@ export const ExamForm: React.FC<ExamFormProps> = ({
               setFormData({ ...formData, totalMarks: e.target.value ? Number(e.target.value) : undefined })
             }
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-            placeholder="e.g., 100"
+            placeholder={t('examForm.totalMarksPlaceholder')}
           />
         </div>
       </div>
-
-
       <div className="flex justify-end space-x-3 pt-4">
         <Button
           type="button"
           variant="secondary"
           onClick={onCancel}
         >
-          Cancel
+          {t('examForm.cancel')}
         </Button>
         <Button
           type="submit"
           isLoading={isLoading}
         >
-          {isEdit ? 'Update Exam' : 'Create Exam'}
+          {isEdit ? t('examForm.updateExam') : t('examForm.createExam')}
         </Button>
       </div>
     </form>

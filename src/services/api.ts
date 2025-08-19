@@ -1,7 +1,7 @@
 import { Exam, ExamCreate, ExamUpdate, PagedResponse } from '../types/exam';
 import { Question, QuestionCreate, QuestionUpdate } from '../types/question';
 
-const API_BASE_URL = 'https://localhost:5001/api'; // Replace with your actual API URL
+const API_BASE_URL = 'https://localhost:5001/api';  
 
 class ApiService {
 

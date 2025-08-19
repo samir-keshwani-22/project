@@ -1,5 +1,7 @@
 import React from 'react';
 import { FileText, HelpCircle, Menu, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 interface SidebarProps {
   currentPage: 'exams' | 'questions';
@@ -14,18 +16,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
   onToggle
 }) => {
+  const { t } = useTranslation();
+
   const navigation = [
     {
       id: 'exams' as const,
-      name: 'Exams',
+      name: t('sidebar.exams'),
       icon: FileText,
-      description: 'Manage exams and assessments'
+      description: t('sidebar.examsDescription')
     },
     {
       id: 'questions' as const,
-      name: 'Questions',
+      name: t('sidebar.questions'),
       icon: HelpCircle,
-      description: 'Create and edit questions'
+      description: t('sidebar.questionsDescription')
     }
   ];
 
@@ -57,13 +61,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 rtl:space-x-reverse">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Exam Portal</h1>
-                <p className="text-sm text-gray-500">Management System</p>
+                <h1 className="text-xl font-bold text-gray-900">{t('sidebar.title')}</h1>
+                <p className="text-sm text-gray-500">{t('sidebar.subtitle')}</p>
               </div>
             </div>
           </div>
@@ -85,8 +89,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }
                   }}
                   className={`
-                    w-full p-3 rounded-lg text-left transition-all duration-200
-                    flex items-center space-x-3 group
+                    w-full p-3 rounded-lg text-left rtl:text-right transition-all duration-200
+                    flex items-center space-x-3 rtl:space-x-reverse group
                     ${isActive
                       ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -116,7 +120,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
           </nav>
 
-
+          {/* Language Switcher */}
+          <div className="p-4 border-t border-gray-200">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     </>

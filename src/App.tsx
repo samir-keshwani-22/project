@@ -1,4 +1,5 @@
-import  { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Layout } from './components/Layout/Layout';
 import { Modal } from './components/UI/Modal';
 import { ExamList } from './components/Exams/ExamList';
@@ -8,15 +9,40 @@ import { QuestionForm } from './components/Questions/QuestionForm';
 import { apiService } from './services/api';
 import { Exam } from './types/exam';
 import { Question } from './types/question';
+import './components/i18n/index';
 
 type ModalType = 'create-exam' | 'edit-exam' | 'create-question' | 'edit-question' | null;
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState<'exams' | 'questions'>('exams');
   const [modalType, setModalType] = useState<ModalType>(null);
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    
+  useEffect(() => {
+    const updateDocumentDirection = () => {
+      document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = i18n.language;
+ 
+      if (i18n.language === 'ar') {
+        document.body.classList.add('rtl');
+      } else {
+        document.body.classList.remove('rtl');
+      }
+    };
+
+    updateDocumentDirection();
+ 
+    i18n.on('languageChanged', updateDocumentDirection);
+
+   
+    return () => {
+      i18n.off('languageChanged', updateDocumentDirection);
+    };
+  }, [i18n]);
 
   const closeModal = () => {
     setModalType(null);
@@ -76,23 +102,24 @@ function App() {
     }
   };
 
+  // Translate modal titles based on current language
   const getModalTitle = () => {
     switch (modalType) {
       case 'create-exam':
-        return 'Create New Exam';
+        return t('modals.createExam');
       case 'edit-exam':
-        return 'Edit Exam';
+        return t('modals.editExam');
       case 'create-question':
-        return 'Create New Question';
+        return t('modals.createQuestion');
       case 'edit-question':
-        return 'Edit Question';
+        return t('modals.editQuestion');
       default:
         return '';
     }
   };
 
   return (
-    <Layout currentPage={currentPage} onPageChange={setCurrentPage}>
+    <Layout  currentPage={currentPage} onPageChange={setCurrentPage}>
       {currentPage === 'exams' ? (
         <ExamList
           onCreateExam={() => setModalType('create-exam')}
@@ -135,7 +162,6 @@ function App() {
               createdBy: selectedExam.createdBy,
               durationMinutes: selectedExam.durationMinutes,
               totalMarks: selectedExam.totalMarks
-
             }}
             onSubmit={handleUpdateExam}
             onCancel={closeModal}

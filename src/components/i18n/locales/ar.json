@@ -1,39 +1,67 @@
 {
     "sidebar": {
-      "title": "بوابة الامتحانات",
-      "subtitle": "نظام الإدارة",
-      "exams": "الامتحانات",
-      "examsDescription": "إدارة الامتحانات والتقييمات",
-      "questions": "الأسئلة",
-      "questionsDescription": "إنشاء وتحرير الأسئلة"
+        "title": "بوابة الامتحانات",
+        "subtitle": "نظام الإدارة",
+        "exams": "الامتحانات",
+        "examsDescription": "إدارة الامتحانات والتقييمات",
+        "questions": "الأسئلة",
+        "questionsDescription": "إنشاء وتحرير الأسئلة"
     },
     "examList": {
-      "title": "الامتحانات",
-      "subtitle": "إدارة امتحاناتك وتقييماتك",
-      "createExam": "إنشاء امتحان",
-      "searchPlaceholder": "البحث في الامتحانات بالعنوان...",
-      "search": "بحث",
-      "noExams": "لا توجد امتحانات",
-      "getStarted": "ابدأ بإنشاء أول امتحان لك.",
-      "loading": "جاري تحميل الامتحانات...",
-      "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذا الامتحان؟",
-      "table": {
-        "title": "العنوان",
-        "startDate": "تاريخ البداية",
-        "endDate": "تاريخ النهاية",
-        "actions": "الإجراءات"
-      },
-      "pagination": {
-        "showing": "عرض",
-        "to": "إلى",
-        "of": "من",
-        "results": "نتيجة",
-        "previous": "السابق",
-        "next": "التالي"
-      }
+        "title": "الامتحانات",
+        "subtitle": "إدارة امتحاناتك وتقييماتك",
+        "createExam": "إنشاء امتحان",
+        "searchPlaceholder": "البحث في الامتحانات بالعنوان...",
+        "search": "بحث",
+        "noExams": "لا توجد امتحانات",
+        "getStarted": "ابدأ بإنشاء أول امتحان لك.",
+        "loading": "جاري تحميل الامتحانات...",
+        "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذا الامتحان؟",
+        "table": {
+            "title": "العنوان",
+            "startDate": "تاريخ البداية",
+            "endDate": "تاريخ النهاية",
+            "actions": "الإجراءات"
+        },
+        "pagination": {
+            "showing": "عرض",
+            "to": "إلى",
+            "of": "من",
+            "results": "نتيجة",
+            "previous": "السابق",
+            "next": "التالي"
+        }
+    },
+    "modals": {
+        "createExam": "إنشاء امتحان جديد",
+        "editExam": "تحرير الامتحان",
+        "createQuestion": "إنشاء سؤال جديد",
+        "editQuestion": "تحرير السؤال"
     },
     "common": {
-      "edit": "تحرير",
-      "delete": "حذف"
+        "edit": "تحرير",
+        "delete": "حذف"
+    },
+    "examForm": {
+        "title": "العنوان *",
+        "titlePlaceholder": "أدخل عنوان الامتحان",
+        "description": "الوصف",
+        "descriptionPlaceholder": "أدخل وصف الامتحان (اختياري)",
+        "startDate": "تاريخ البداية *",
+        "endDate": "تاريخ النهاية *",
+        "duration": "المدة (بالدقائق) *",
+        "durationPlaceholder": "مثال: 90",
+        "totalMarks": "الدرجات الكلية (اختياري)",
+        "totalMarksPlaceholder": "مثال: 100",
+        "cancel": "إلغاء",
+        "createExam": "إنشاء امتحان",
+        "updateExam": "تحديث الامتحان",
+        "validation": {
+            "titleRequired": "العنوان مطلوب",
+            "startRequired": "تاريخ البداية مطلوب",
+            "endRequired": "تاريخ النهاية مطلوب",
+            "endAfterStart": "يجب أن يكون تاريخ النهاية بعد تاريخ البداية",
+            "durationRequired": "يجب أن تكون المدة أكبر من 0"
+        }
     }
-  }
+}
